@@ -11,7 +11,7 @@ const calculate =(btnValue) =>{
     }else if(btnValue === "AC"){
         output = "";
     }else if(btnValue === "DEL"){
-        //if del nutton is clicked, remove the last character from the output.
+        //if del button is clicked, remove the last character from the output.
         output = output.toString().slice(0,-1);
     }else {
         //if output is empty and button is specialChars then return
@@ -20,4 +20,7 @@ const calculate =(btnValue) =>{
     }
     display.value= output;
 };
+buttons.forEach((button)=>{
+    button.addEventListener("click", (e) => calculate(e.target.dataset.value));
+});
 
