@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+:root{
+    --special-color:#ffccffcc;
+    --main-color:#351235;
+    --secondary-color:#4c1b4c;
+    --tertiary-color:#000000;
+    --additional-color: #ffffff;
+}
+*{ 
+    box-sizing: border-box;
+    font-family: "Poppons", sans-serif;
+}
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:url(floral\ image.webp)
+}
+.container{
+    position: relative;
+    height: 50vh;
+    max-width: 23vw;
+    border-radius: 12px;
+    padding: 2%;
+    background: var(--main-color);
+    display: inline-grid;
+    
+}
+.display{
+    height: 10vh;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 4%;
+    font-size: 2rem;
+    color: var(--tertiary-color);
+    pointer-events: none;
+    
+   
+}
+.buttons{
+    display: grid;
+    grid-gap: 5%;
+    grid-template-columns: repeat(4, 1fr);
+}
+.buttons button {
+    padding:17%;
+    border-radius: 6px;
+    border:none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    background-color: var(--secondary-color) ;
+    
+}
+.buttons button:active{
+    transform: scale(1.1);
+}
+.operator{
+    color: var(--special-color);
+}
