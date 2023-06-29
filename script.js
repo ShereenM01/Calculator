@@ -31,7 +31,7 @@ function evaluate(value) {
     console.log("evaluate", value);
 
     if (value === "(" || value === ")")
-        return "";
+        return ""; // nothing was found in the bracket == ""
     
     value = value.toString();
 
@@ -56,108 +56,98 @@ function evaluate(value) {
         return evaluate(value.substring(0, indexBracketOpen) + evaluate(output1) + value.substring(indexBracketClose+1, value.length));
     }
     else if (indexOperatorDiv !== -1) {
-        console.log("div");
-        let before = value.substring(0, indexOperatorDiv); // 2 + 3
-        let after = value.substring(indexOperatorDiv+1, value.length); // 3
+        
+        let before = value.substring(0, indexOperatorDiv); 
+        let after = value.substring(indexOperatorDiv+1, value.length); 
 
         let beforeOperatorIndex = indexOfOperator(before);
         let afterOperatorIndex = indexOfOperator(after);
 
         if (beforeOperatorIndex === -1 && afterOperatorIndex === -1) {
-            console.log(111);
             return evaluate(parseFloat(evaluate(before)) / parseFloat(evaluate(after)));
         }
-        else if (beforeOperatorIndex === -1 && afterOperatorIndex !== -1) { // 3 * 3 + 2
-            console.log(222);
+        else if (beforeOperatorIndex === -1 && afterOperatorIndex !== -1) { 
             return evaluate((parseFloat(before) / after.substring(0, afterOperatorIndex)) + after.substring(afterOperatorIndex, after.length));
         }
-        else if (beforeOperatorIndex !== -1 && afterOperatorIndex === -1) { // 2 + 3 * 3
-            console.log(333, before, after, );
+        else if (beforeOperatorIndex !== -1 && afterOperatorIndex === -1) { 
             return evaluate(before.substring(0, beforeOperatorIndex+1) + (parseFloat(before.substring(beforeOperatorIndex, before.length)) / parseFloat(after)));
         }
-        else { // 2 + 3 * 3 - 2
-            console.log(444);
+        else {
+            
             return evaluate(before.substring(0, beforeOperatorIndex+1) + (parseFloat(before.substring(beforeOperatorIndex+1, before.length)) / parseFloat(after.substring(0, afterOperatorIndex))) + after.substring(afterOperatorIndex, after.length));
         }
-        //return parseFloat(evaluate(value.substring(0, indexOperatorDiv))) / parseFloat(evaluate(value.substring(indexOperatorDiv+1, value.length)));
     }
     else if (indexOperatorMul !== -1){    
-        console.log("mul");
-        // 2 + 3 * 3 --> {2 + 3} * 3
-        // 2 + 3 * 3 --> 2 + {3 * 3}
-        let before = value.substring(0, indexOperatorMul); // 2 + 3
-        let after = value.substring(indexOperatorMul+1, value.length); // 3
+       
+        let before = value.substring(0, indexOperatorMul); 
+        let after = value.substring(indexOperatorMul+1, value.length); 
 
         let beforeOperatorIndex = indexOfOperator(before);
         let afterOperatorIndex = indexOfOperator(after);
 
         if (beforeOperatorIndex === -1 && afterOperatorIndex === -1) {
-            console.log(111);
+    
             return evaluate(parseFloat(evaluate(before)) * parseFloat(evaluate(after)));
         }
-        else if (beforeOperatorIndex === -1 && afterOperatorIndex !== -1) { // 3 * 3 + 2
-            console.log(222);
+        else if (beforeOperatorIndex === -1 && afterOperatorIndex !== -1) {
+            
             return evaluate((parseFloat(before) * after.substring(0, afterOperatorIndex)) + after.substring(afterOperatorIndex, after.length));
         }
-        else if (beforeOperatorIndex !== -1 && afterOperatorIndex === -1) { // 2 + 3 * 3
-            console.log(333, before, after, );
+        else if (beforeOperatorIndex !== -1 && afterOperatorIndex === -1) { 
+            
             return evaluate(before.substring(0, beforeOperatorIndex+1) + (parseFloat(before.substring(beforeOperatorIndex, before.length)) * parseFloat(after)));
         }
-        else { // 2 + 3 * 3 - 2
+        else { 
             console.log(444);
             return evaluate(before.substring(0, beforeOperatorIndex+1) + (parseFloat(before.substring(beforeOperatorIndex+1, before.length)) * parseFloat(after.substring(0, afterOperatorIndex))) + after.substring(afterOperatorIndex, after.length));
         }
         
     }
     else if (indexOperatorAdd != -1) {
-        console.log("add");
-        let before = value.substring(0, indexOperatorAdd); // 2 + 3
-        let after = value.substring(indexOperatorAdd+1, value.length); // 3
+       
+        let before = value.substring(0, indexOperatorAdd); 
+        let after = value.substring(indexOperatorAdd+1, value.length); 
 
         let beforeOperatorIndex = indexOfOperator(before);
         let afterOperatorIndex = indexOfOperator(after);
 
         if (beforeOperatorIndex === -1 && afterOperatorIndex === -1) {
-            console.log(111);
-            return evaluate(parseFloat(evaluate(before)) * parseFloat(evaluate(after)));
+           
+            return evaluate(parseFloat(evaluate(before)) + parseFloat(evaluate(after)));
         }
-        else if (beforeOperatorIndex === -1 && afterOperatorIndex !== -1) { // 3 * 3 + 2
-            console.log(222);
-            return evaluate((parseFloat(before) * after.substring(0, afterOperatorIndex)) + after.substring(afterOperatorIndex, after.length));
+        else if (beforeOperatorIndex === -1 && afterOperatorIndex !== -1) { 
+        
+            return evaluate((parseFloat(before) + after.substring(0, afterOperatorIndex)) + after.substring(afterOperatorIndex, after.length));
         }
-        else if (beforeOperatorIndex !== -1 && afterOperatorIndex === -1) { // 2 + 3 * 3
-            console.log(333, before, after, );
-            return evaluate(before.substring(0, beforeOperatorIndex+1) + (parseFloat(before.substring(beforeOperatorIndex, before.length)) * parseFloat(after)));
+        else if (beforeOperatorIndex !== -1 && afterOperatorIndex === -1) { 
+            
+            return evaluate(before.substring(0, beforeOperatorIndex+1) + (parseFloat(before.substring(beforeOperatorIndex, before.length)) + parseFloat(after)));
         }
-        else { // 2 + 3 * 3 - 2
-            console.log(444);
-            return evaluate(before.substring(0, beforeOperatorIndex+1) + (parseFloat(before.substring(beforeOperatorIndex+1, before.length)) * parseFloat(after.substring(0, afterOperatorIndex))) + after.substring(afterOperatorIndex, after.length));
+        else { 
+            
+            return evaluate(before.substring(0, beforeOperatorIndex+1) + (parseFloat(before.substring(beforeOperatorIndex+1, before.length)) + parseFloat(after.substring(0, afterOperatorIndex))) + after.substring(afterOperatorIndex, after.length));
         }
 
-        //return parseFloat(evaluate(value.substring(0, indexOperatorAdd))) + parseFloat(evaluate(value.substring(indexOperatorAdd+1, value.length)));
     }
     else if (indexOperatorSub !== -1 && indexOperatorSub !== 0) {
-        console.log("sub");
-        let before = value.substring(0, indexOperatorSub); // 2 + 3
-        let after = value.substring(indexOperatorSub+1, value.length); // 3
+        
+        let before = value.substring(0, indexOperatorSub); 
+        let after = value.substring(indexOperatorSub+1, value.length); 
 
         let beforeOperatorIndex = indexOfOperator(before);
         let afterOperatorIndex = indexOfOperator(after);
 
         if (beforeOperatorIndex === -1 && afterOperatorIndex === -1) {
-            console.log(111);
+            
             return evaluate(parseFloat(evaluate(before)) - parseFloat(evaluate(after)));
         }
-        else if (beforeOperatorIndex === -1 && afterOperatorIndex !== -1) { // 3 * 3 + 2
-            console.log(222);
+        else if (beforeOperatorIndex === -1 && afterOperatorIndex !== -1) { 
             return evaluate((parseFloat(before) - after.substring(0, afterOperatorIndex)) + after.substring(afterOperatorIndex, after.length));
         }
-        else if (beforeOperatorIndex !== -1 && afterOperatorIndex === -1) { // 2 + 3 * 3
-            console.log(333, before, after, );
+        else if (beforeOperatorIndex !== -1 && afterOperatorIndex === -1) { 
             return evaluate(before.substring(0, beforeOperatorIndex+1) + (parseFloat(before.substring(beforeOperatorIndex, before.length)) - parseFloat(after)));
         }
-        else { // 2 + 3 * 3 - 2
-            console.log(444);
+        else { 
             return evaluate(before.substring(0, beforeOperatorIndex+1) + (parseFloat(before.substring(beforeOperatorIndex+1, before.length)) - parseFloat(after.substring(0, afterOperatorIndex))) + after.substring(afterOperatorIndex, after.length));
         }
     }
@@ -183,7 +173,7 @@ const calculate = (buttonValue) => {
         output = output.toString().slice(0,-1);
     }
     else if (buttonValue === "(" && ")") {
-        //if bracket is selected, apply bodmas?
+        //anything before the bracket is number then add mul(*)
         if (output.length > 0 && !isNaN(output.charAt(output.length - 1))) {
             output += "*";
         }
@@ -194,7 +184,7 @@ const calculate = (buttonValue) => {
         if (output ==="" && specialChars.includes(buttonValue)) return;
             output += buttonValue;
     }
-    
+
     myDisplay.value = output;
 };
 buttons.forEach((button)=>{
