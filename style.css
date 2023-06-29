@@ -20,40 +20,44 @@ body{
 }
 .container{
     position: relative;
-    height: 50vh;
+    height: 80vh;
     max-width: 23vw;
     border-radius: 12px;
-    padding: 2%;
+    padding: 3%;
     background: var(--main-color);
     display: inline-grid;
-    
 }
 .display{
-    height: 10vh;
+    height: 12vh;
     width: 100%;
     text-align: right;
-    margin-bottom: 4%;
+    margin: 0.5%;
     font-size: 2rem;
-    color: var(--tertiary-color);
+    color: var(--tertiary-color);;
     pointer-events: none;
 }
 .buttons{
     display: grid;
-    grid-gap: 5%;
+    grid-row-start:2%;
+    grid-row-end:4%;
+    grid-gap: 4%;
     grid-template-columns: repeat(4, 1fr);
 }
 .buttons button {
-    padding:17%;
-    border-radius: 6px;
+    padding:30%;
+    border-radius: 5px;
     border:none;
-    font-size: 1.3rem;
+    font-size: 0.9rem bold;
+    font-style: oblique;
+    font-variant-position: inherit;
+    color: var(--additional-color);
     cursor: pointer;
     background-color: var(--secondary-color) ;
-    
 }
 .buttons button:active{
     transform: scale(1.1);
 }
-.operator{
+.buttons .operator{
     color: var(--special-color);
 }
+
